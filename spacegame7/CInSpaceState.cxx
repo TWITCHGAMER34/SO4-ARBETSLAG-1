@@ -681,7 +681,7 @@ void CInSpaceState::state_process_event(sf::View &mainView, sf::RenderWindow &sf
 
 					this->state_send_notification(std::string("Mouse Track: ") + std::string(this->m_bTrackMode ? "ON" : "OFF"));
 				}
-				else if(sfEvent.key.code == sf::Keyboard::Tilde)
+				else if(sfEvent.key.code == sf::Keyboard::RControl)
 				{
 					this->m_pInterfaceManager->register_tangible_ui_event();
 
