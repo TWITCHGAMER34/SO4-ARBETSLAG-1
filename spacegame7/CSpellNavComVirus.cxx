@@ -41,6 +41,16 @@ bool CSpellNavComVirus::cast(InstanceId const iCaster, InstanceId const iTarget)
 		return false;
 	}
 
+	//Compute distance between target and player
+	Vector2f Target_pos = pTarget->get_position();
+	Vector2f Caster_pos = pCaster->get_position();
+
+	float Dist = Target_pos.distance(Caster_pos);
+	if (Dist >= 1000.0f)
+	{
+		return false;
+	}
+
 	SG::get_audio_manager()->play_sound(14);
 	SG::get_particle_manager()->add_particle(12, pTarget->get_position(), pTarget->get_velocity(), 0.0f, 0.0f);
 
