@@ -41,6 +41,16 @@ bool CSpellMagneticDrain::cast(InstanceId const iCaster, InstanceId const iTarge
 		return false;
 	}
 
+	//Compute distance between target and player
+	Vector2f Target_pos = pTarget->get_position();
+	Vector2f Caster_pos = pCaster->get_position();
+
+	float Dist = Target_pos.distance(Caster_pos);
+		if (Dist >= 1000.0f)
+		{
+			return false;
+		}
+
 	SG::get_audio_manager()->play_sound(17);
 	SG::get_particle_manager()->add_particle(13, pTarget->get_position(), pTarget->get_velocity(), 0.0f, 0.0f);
 	SG::get_particle_manager()->add_particle(14, pCaster->get_position(), pCaster->get_velocity(), 0.0f, 0.0f);
