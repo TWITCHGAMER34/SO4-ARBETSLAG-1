@@ -345,5 +345,57 @@ void populate_debug_commands()
 		}
 	);
 
+	pDebugConsole->console_register_command(
+		"takeDamage",
+		[pDebugConsole](std::vector<std::string> const& args) {
+			unsigned int const expectedArguments = 2;
+
+			if (args.size() != expectedArguments)
+			{
+				pDebugConsole->console_write_line("Expected " + Conversion::uint_to_string(expectedArguments - 1) + " arguments");
+
+				return;
+			}
+
+			bool inputValid = true;
+			unsigned long damageToTake;
+
+			try
+			{
+				damageToTake = std::stoi(args[1]);
+			}
+			catch (std::invalid_argument& e)
+			{
+				inputValid = false;
+			}
+
+			if (!inputValid)
+			{
+				pDebugConsole->console_write_line("Invalid argument format");
+			}
+			else
+			{
+				pDebugConsole->console_write_line("OK");
+
+				IWorld* pWorld = SG::get_world();
+
+				InstanceId uiPlayer = pWorld->get_player_unchecked();
+
+				if (uiPlayer != INVALID_INSTANCE)
+				{
+					CShip* pPlayerShip = SG::get_engine()->instance_get_checked<CShip>(uiPlayer);
+
+					if (pPlayerShip != nullptr)
+					{
+						pPlayerShip->inflict_damage(0, pPlayerShip->get_shield_pts());
+						pPlayerShip->inflict_damage(damageToTake, 0);
+					}
+				}
+
+				SG::get_intransient_data_manager()->get_character_entity_manager()->get_player_character_entity();
+			}
+		}
+	);
+
 	bDebugCommandsPopulated = true;
 }
