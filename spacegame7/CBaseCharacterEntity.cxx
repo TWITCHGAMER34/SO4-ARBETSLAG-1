@@ -31,6 +31,7 @@ CBaseCharacterEntity::CBaseCharacterEntity(Loadout const *pLoadout, std::string 
 	this->m_flMana = 100.0f;
 	this->m_flMaxMana = 100.0f;
 	this->m_flManaRegen = this->m_flMaxMana * 0.01f;
+	this->m_flHealth = NULL;
 
 	this->m_uiFreeSkillPoints = 0U;
 
@@ -504,4 +505,37 @@ void CBaseCharacterEntity::clear_skills(void)
 	SCOPE_LOCK(this->m_mFieldAccess);
 
 	this->m_vSkills.clear();
+}
+
+float CBaseCharacterEntity::get_health() 
+{
+	SCOPE_LOCK(this->m_mFieldAccess);
+
+	return this->m_flHealth;
+}
+
+void CBaseCharacterEntity::set_health(float const health) 
+{
+	SCOPE_LOCK(this->m_mFieldAccess);
+
+	this->m_flHealth = health;
+}
+
+float CBaseCharacterEntity::get_max_health() {
+	SCOPE_LOCK(this->m_mFieldAccess);
+
+	return this->m_flMaxHealth;
+}
+
+void CBaseCharacterEntity::set_max_health(float const health) 
+{
+	SCOPE_LOCK(this->m_mFieldAccess);
+
+	if (health != this->m_flMaxHealth) {
+		this->m_flMaxHealth = health;
+	}
+
+	if (this->m_flHealth == NULL) {
+		this->m_flHealth = this->m_flMaxHealth;
+	}
 }

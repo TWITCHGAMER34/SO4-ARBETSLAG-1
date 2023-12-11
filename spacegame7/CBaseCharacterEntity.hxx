@@ -87,6 +87,12 @@ public:
 	virtual void get_skills(std::vector<SkillId> &) final;
 	virtual void clear_skills(void) final;
 
+	virtual float get_health() final;
+	virtual void set_health(float const) final;
+
+	virtual float get_max_health() final;
+	virtual void set_max_health(float const);
+
 protected:
 	Spinlock m_mFieldAccess;
 	Loadout m_lLoadout;
@@ -98,6 +104,8 @@ protected:
 	float m_flMana;
 	float m_flMaxMana;
 	float m_flManaRegen;
+	float m_flHealth;
+	float m_flMaxHealth;
 	CStatBlock *m_pStatBlock;
 	unsigned int m_uiShipId;
 	unsigned int m_uiFreeSkillPoints;

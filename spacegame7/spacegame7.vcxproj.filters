@@ -481,6 +481,9 @@
     <ClCompile Include="MaterialTraderPanel.cxx">
       <Filter>Engine\Interface</Filter>
     </ClCompile>
+    <ClCompile Include="ShipRepairPanel.cxx">
+      <Filter>Engine\Interface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IEngine.hxx">
@@ -1057,6 +1060,9 @@
       <Filter>Engine\Market</Filter>
     </ClInclude>
     <ClInclude Include="MaterialTraderPanel.hxx">
+      <Filter>Engine\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="ShipRepairPanel.hxx">
       <Filter>Engine\Interface</Filter>
     </ClInclude>
   </ItemGroup>

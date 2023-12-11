@@ -87,4 +87,9 @@ interface ICharacterEntity
 
 	virtual float get_stat(Stat const) = 0;
 	virtual void set_stats(CStatBlock const&) = 0;
+
+	virtual float get_health() = 0;
+	virtual void set_health(float const) = 0;
+	virtual float get_max_health() = 0;
+	virtual void set_max_health(float const) = 0;
 };

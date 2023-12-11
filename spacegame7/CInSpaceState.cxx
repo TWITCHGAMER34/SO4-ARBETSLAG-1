@@ -174,9 +174,9 @@ void CInSpaceState::state_initializing(void)
 	parms.flAngularVelocity = 0.0f;
 	parms.pArch = this->m_pGameDataManager->get_arch<ShipArch>(pPlayerEntity->get_ship());
 	parms.uiAppearanceId = parms.pArch->uiShipAppearance;
-	parms.flHitPoints = parms.pArch->flMaxHitPoints;
+	pPlayerEntity->set_max_health(parms.pArch->flMaxHitPoints);
+	parms.flHitPoints = pPlayerEntity->get_health();
 	parms.flRadius = 64.0f;
-	parms.flHitPoints = parms.pArch->flMaxHitPoints;
 	parms.flShieldPoints = parms.pArch->flMaxShieldPoints;
 	parms.szName = "Player";
 	parms.pFaction = nullptr;
@@ -523,6 +523,7 @@ void CInSpaceState::state_postrender_tick(sf::RenderWindow &sfWindow, float cons
 void CInSpaceState::state_terminating(void)
 {
 	ICamera* pActiveCamera = this->m_pRenderPipeline->acquire_active_camera();
+	ICharacterEntity* pPlayerEntity = SG::get_intransient_data_manager()->get_character_entity_manager()->get_player_character_entity();
 
 	if(pActiveCamera != nullptr)
 	{
@@ -537,6 +538,7 @@ void CInSpaceState::state_terminating(void)
 		this->m_pRenderPipeline->release_active_camera();
 	}
 
+	pPlayerEntity->set_health(this->m_pPlayer->get_hit_pts());
 	this->m_pPlayer = nullptr;
 }
 
