@@ -189,6 +189,7 @@ float CObject::get_angular_velocity(void)
 void CObject::set_angular_velocity(float const newAngularVelocity)
 {
 	//NO EFFECT
+	m_flAngularVelocity = newAngularVelocity;
 }
 
 Vector2f CObject::get_acceleration(void)

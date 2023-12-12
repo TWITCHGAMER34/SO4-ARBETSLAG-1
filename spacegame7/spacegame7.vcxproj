@@ -288,6 +288,7 @@
     <ClCompile Include="SaveGamePanel.cxx" />
     <ClCompile Include="SectorMapPanel.cxx" />
     <ClCompile Include="SettingsPanel.cxx" />
+    <ClCompile Include="ShipRepairPanel.cxx" />
     <ClCompile Include="SkillTreePanel.cxx" />
     <ClCompile Include="Spells.cxx" />
     <ClCompile Include="Util.cxx" />
@@ -493,6 +494,7 @@
     <ClInclude Include="SGEngine.hxx" />
     <ClInclude Include="SGLib.hxx" />
     <ClInclude Include="Archetype.hxx" />
+    <ClInclude Include="ShipRepairPanel.hxx" />
     <ClInclude Include="ShipStatusPanel.hxx" />
     <ClInclude Include="SkillTreePanel.hxx" />
     <ClInclude Include="Spells.hxx" />

@@ -26,6 +26,7 @@
 #include "EquipTraderPanel.hxx"
 #include "JunkTraderPanel.hxx"
 #include "MaterialTraderPanel.hxx"
+#include "ShipRepairPanel.hxx"
 
 #define BUFFER_SIZE 2048
 #define LINE_LENGTH 24
@@ -110,6 +111,12 @@ public:
 			//SG::get_interface_manager()->free_all_panels();
 
 			SG::get_interface_manager()->add_panel(new MaterialTraderPanel(this->m_iBaseId));
+		}
+
+		ImGui::SetCursorPosX(windowWidth / 8.0f);
+		if (ImGui::Button("Repair Ship", buttonSize))
+		{
+			SG::get_interface_manager()->add_panel(new ShipRepairPanel(this->m_iBaseId));
 		}
 
 		if (m_base.get_rmsn_offered())
