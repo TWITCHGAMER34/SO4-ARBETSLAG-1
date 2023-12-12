@@ -23,6 +23,7 @@
 #include "CInSpaceState.hxx"
 
 #include <random>
+#include <iostream>
 
 CShip::CShip(void)
 {
@@ -344,10 +345,33 @@ void CShip::collision_callback(IWorldObject *pOtherObject)
 		{
 			WeaponArch const *pArch = pProjectile->get_weapon_arch();
 
+			//Creating a variable for the damage modifiers to be changed later
+
+			float multi = 1.0f;
+
+			//Check so the attacking ship is not a nullpointer
+			CShip* pAttacker = SG::get_engine()->instance_get_checked<CShip>(pProjectile->get_parent_instance());
+			if (pAttacker != nullptr && pAttacker->get_parent_entity() != nullptr) {
+				auto pParent = pAttacker->get_parent_entity();
+
+				//Check what projectile is fired and apply the appropriate damage multiplier
+				if (pProjectile->is_missile()) {
+					multi += pParent->get_stat(Stat::MISSILE_PROFICIENCY) / 100; //Apply multi based on proficiency, divide by 100 to get reasonable multi
+				}
+				else {
+					if (pArch->flEnergyCost > 0) {
+						multi += pParent->get_stat(Stat::LASER_PROFICIENCY) / 100;
+					}
+					else {
+						multi += pParent->get_stat(Stat::KINETIC_PROFICIENCY) / 100;
+					}
+				}
+			}
+
 			//first apply the damage multiplier, which is usually 1.0 but for projectiles
 			//originating from the player, will depend on their stat modifiers
-			float flFinalHullDamage = pArch->flHullDamage * pProjectile->get_damage_multiplier();
-			float flFinalShieldDamage = pArch->flShieldDamage * pProjectile->get_damage_multiplier();
+			float flFinalHullDamage = pArch->flHullDamage * pProjectile->get_damage_multiplier() * multi; //Apply multis to increase damage 
+			float flFinalShieldDamage = pArch->flShieldDamage * pProjectile->get_damage_multiplier() * multi;
 
 			this->take_damage(flFinalHullDamage, flFinalShieldDamage);
 
@@ -403,6 +427,8 @@ void CShip::collision_callback(IWorldObject *pOtherObject)
 					 */
 					float flMetalMultiplier = 1.0f;
 
+					flMetalMultiplier += pPlayerEntity->get_stat(Stat::LUCK) / 100;
+				
 					unsigned int uiFinalMetalAward = (unsigned int)(flMetalMultiplier * uiMetalAward);
 
 					pPlayerInventory->adjust_metal(uiFinalMetalAward);
