@@ -1705,6 +1705,18 @@ extern "C"
 
 		SG::get_world()->instance_add(vc);
 
+		InstanceId stop_ship = SG::get_world()->get_player();
+
+		IWorldObject* pObject = sgs::worldobject_from_id(L, stop_ship);
+		// virtual IPhysicalObject* get_physical(void)
+		IPhysicalObject* fortnite = pObject->get_physical();
+		
+
+	
+		fortnite->set_angular_velocity(0.0);
+
+
+
 		return 0;
 	}
 
