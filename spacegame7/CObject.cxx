@@ -188,7 +188,7 @@ float CObject::get_angular_velocity(void)
 */
 void CObject::set_angular_velocity(float const newAngularVelocity)
 {
-	//NO EFFECT
+	//this now has effect, to solve the problem of the ship spinning in cutscenes, 
 	m_flAngularVelocity = newAngularVelocity;
 }
 

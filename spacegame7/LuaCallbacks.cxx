@@ -1705,15 +1705,19 @@ extern "C"
 
 		SG::get_world()->instance_add(vc);
 
+		//this  works code is to stop the the angular velocity of the speed that it retains before any cutscenes, and therefore the spinning, but this now works as intended.
+
+		// this gets the information we need to access in this document 
 		InstanceId stop_ship = SG::get_world()->get_player();
 
+		//now were making the function using those variables/values to stop the angular speed of the spacecraft
 		IWorldObject* pObject = sgs::worldobject_from_id(L, stop_ship);
 		// virtual IPhysicalObject* get_physical(void)
-		IPhysicalObject* fortnite = pObject->get_physical();
+		IPhysicalObject* Spin_function = pObject->get_physical();
 		
 
 	
-		fortnite->set_angular_velocity(0.0);
+		Spin_function->set_angular_velocity(0.0);
 
 
 
